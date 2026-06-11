@@ -4,12 +4,14 @@ import pandas as pd
 CSV_PATH = "data/etf_price.csv"
 DB_PATH = "data/ETF_Project.db"
 
+#資料表名稱
 ETF_TABLES = {"0050.TW": "etf_0050","006208.TW":"etf_006208",
               "0056.TW":"etf_0056",
               "00679B.TWO": "etf_00679b","00687B.TWO":"etf_00687b",
               "00631L.TW":"etf_00631l",
               "00632.TW":"etf_00632r"}
 
+#主程式
 def main():
 
     df = pd.read_csv(CSV_PATH)
@@ -19,7 +21,8 @@ def main():
     df.columns = ["trade_date","etf_code","open_price","high_price","low_price","close_price","volume"]
 
     df["trade_date"] = pd.to_datetime(df["trade_date"])
-
+    
+    #連接資料庫
     with sqlite3.connect(DB_PATH) as conn:
 
         for etf_code, table_name in ETF_TABLES.items():
@@ -30,7 +33,7 @@ def main():
 
             print(f"{table_name} 匯入成功")
 
-        df.to_sql("etf_price",conn,if_exists="replace",index=False)
+        df.to_sql("etf_price",conn,if_exists="replace",index=False) #總資料表
 
         print("etf_price 匯入成功")
 
