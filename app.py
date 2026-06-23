@@ -380,11 +380,6 @@ total_investment = cumulative_investment.iloc[-1] #總投入本金
 total_return = (end_value / total_investment) - 1 #總報酬率
 years = (portfolio_value.index[-1]-portfolio_value.index[0]).days / 365 #總投資年數
 
-# 最近一年資料
-recent_return = cumulative_return.last("365D")
-
-
-
 #長期平均年化報酬
 if years > 0:
     cagr = (
